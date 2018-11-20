@@ -1,6 +1,6 @@
 # iReporter Application
 
-##Description
+## Description
 ### An application that allows users to anonymously upload and repoert problems with reference to corruption and other malpractices in the government. 
 
 ## Specifications
