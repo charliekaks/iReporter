@@ -2,13 +2,14 @@
 *{
     margin: 0;
     padding: 0;
+    font-family: 'Slabo 27px', serif;
 }
 .container-fluid {
     width: 100%;
     padding:0px;
     margin:0px;
 }
-.main{
+body{
     background: #1f4037; 
     background: -webkit-linear-gradient(to right, #1f4037, #99f2c8); 
     background: linear-gradient(to right, #1f4037, #99f2c8); 
@@ -17,6 +18,10 @@
 p{
     font-family: 'Slabo 27px', serif;
     color: white;
+}
+.head{
+    text-align: center;
+    color: #ffffff;
 }
 /* For desktop: */
 .col-1 {width: 8.33%;}
@@ -251,4 +256,75 @@ p{
       float: right;
   }
   /*Form styles*/
+
+
+#form{
+	height: 100%;	
+    margin-left: 35%;
+	
+}
+form{
+	margin: 0 auto;
+	width: 500px;
+	padding-top: 40px;
+	color: white;
+	position: relative;
+	
+	
+}
+label, input, textarea{
+    display: block;	
+    color: #ffffff;
+}
+input, textarea{
+	width: 500px;	
+	border: none;
+	border-radius: 20px;
+	outline: none;
+	padding: 10px;
+	font-family: 'Sniglet', cursive;
+	font-size: 1em;
+	color: #676767;
+	transition: border 0.5s;
+	-webkit-transition: border 0.5s;
+	-moz-transition: border 0.5s;
+	-o-transition: border 0.5s;
+	border: solid 3px #47c9af;	
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+	
+}
+input:focus, textarea:focus{
+	border: solid 3px #77bde0;	
+}
+
+textarea{
+	height: 100px;	
+	resize: none; 
+	overflow: auto;
+}
+input[type="submit"]{
+	background-color: #47c9af;
+	color: white;
+	height: 50px;
+	cursor: pointer;
+	margin-top: 30px;
+    font-size: 1.29em;
+    font-family: 'Slabo 27px', serif;
+	-webkit-transition: background-color 0.5s;
+	-moz-transition: background-color 0.5s;
+	-o-transition: background-color 0.5s;
+	transition: background-color 0.5s;
+}
+input[type="submit"]:hover{
+	background-color:  #47c9af;
+	
+}
+label{
+	font-size: 1.5em;
+	margin-top: 20px;
+	padding-left: 20px;
+}
+
   
