@@ -235,6 +235,7 @@ p{
   }
   .btn_primary{
     display: inline-block;
+    text-decoration: none;
     font-weight: 400;
     text-align: center;
     white-space: nowrap;
@@ -249,6 +250,12 @@ p{
     line-height: 1.5;
     border-radius: 0.25rem;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  .btn_primary:hover{
+      background-color: #47c9af;
+  }
+  .btn_primary > a{
+      text-decoration: none;
   }
   .corrt{
       margin-top: -250px;
