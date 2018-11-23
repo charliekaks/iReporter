@@ -27,6 +27,8 @@
                     <label for="fileupload"> Select a file to upload</label>
                     <form action="myform.cgi"> <input type="file" name="fileupload" value="fileupload" id="fileupload">
                     </form>
+                    <button class="btn_primary" id="mapBtn">Show Map</button>
+                    <div id="mapArea"></div>
                     <input type="submit" value="Submit" />
                 </div>
             </div>
@@ -47,13 +49,15 @@
                     <label for="fileupload"> Select a file to upload</label>
                     <form action="myform.cgi"> <input type="file" name="fileupload" value="fileupload" id="fileupload">
                     </form>
-                    <input type="submit" value="Submit" />
-
-                    
+                    <button class="btn_primary" id="mapBtn">Show Map</button>
+                    <div id="mapArea"></div>
+                    <input type="submit" value="Submit" /> 
                 </div>
             </div>
         </div>
     </div>
+    <script src="../js/scripts.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2SHXbYQmmCGPCurFIrtl7-io0mOTsX3k&callback=initMap"></script>
 </body>
 
 </html>
