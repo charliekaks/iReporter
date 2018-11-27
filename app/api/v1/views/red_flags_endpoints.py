@@ -43,4 +43,22 @@ class RedFlags(Resource):
         return  make_response(jsonify(response),201)
     def get(self):
         return make_response(jsonify({"red-flags":red_flags}), 201)
+
+class UniqueRedFlag(Resource):
+    def get(self,id):
+        return_value = {}
+        for flag in red_flags:
+            if flag["id"] == id:
+                return_value = {
+                    "id": flag['id'],
+                    "createdOn": flag['createdOn'],
+                    "createdBy" : flag['createdBy'],
+                    "type": flag['type'],
+                    "location": flag['location'],
+                    "status": flag['status'],
+                    "images": flag['images'],
+                    "video": flag['video'],
+                    "comment": flag['comment']
+                }
+        return make_response(jsonify(return_value),200)
     
