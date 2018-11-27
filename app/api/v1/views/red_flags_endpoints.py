@@ -62,3 +62,31 @@ class UniqueRedFlag(Resource):
                 }
         return make_response(jsonify(return_value),200)
     
+    def put(self,id):
+        request_data = request.get_json()
+        updated_red_flag = {
+            "id": request_data['id'],
+            "createdOn": request_data['createdOn'],
+            "createdBy" : request_data['createdBy'],
+            "type": request_data['type'],
+            "location": request_data['location'],
+            "status": request_data['status'],
+            "images": request_data['images'],
+            "video": request_data['video'],
+            "comment": request_data['comment']
+        }
+        i = 0
+        for flag in red_flags:
+            currentFlag = flag["id"]
+            if currentFlag == id:
+                red_flags[i] = updated_red_flag
+            i+=1
+        response = {
+            "status": 200,
+            "data": [{
+                        "id": updated_red_flag["id"],
+                        "message":  "successfully editted red-flag record"
+                    }]
+        }  
+        return  make_response(jsonify(response),201)    
+    
