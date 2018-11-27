@@ -85,8 +85,23 @@ class UniqueRedFlag(Resource):
             "status": 200,
             "data": [{
                         "id": updated_red_flag["id"],
-                        "message":  "successfully editted red-flag record"
+                        "message":  "successfully editted a red-flag record"
                     }]
         }  
-        return  make_response(jsonify(response),201)    
-    
+        return  make_response(jsonify(response),201)  
+
+
+    def delete(self,id):
+        i=0
+        for flag in red_flags:
+            if flag["id"] == id:
+                red_flags.pop(i)
+            i+=1
+        response = {
+            "status": 200,
+            "data": [{
+                        "id": id,
+                        "message":  "successfully deleted a red-flag record"
+                    }]
+        }  
+        return  make_response(jsonify(response),201)  
