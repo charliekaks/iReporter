@@ -41,4 +41,6 @@ class RedFlags(Resource):
                 }
 
         return  make_response(jsonify(response),201)
+    def get(self):
+        return make_response(jsonify({"red-flags":red_flags}), 201)
     
