@@ -3,15 +3,14 @@
 # Third party imports
 from flask import Flask
 from instance.config import app_config
-from flask_restful import Api, Resource
-
-from .api.v1.views.red_flags_endpoints import RedFlags, UniqueRedFlag
+from flask_restful import Resource, Api
+from .api.v1 import v1
 
 
 
 def create_app(config_name):
-    app = Flask(__name__)
-    api = Api(app)
-    api.add_resource(RedFlags, '/red-flags')
-    api.add_resource(UniqueRedFlag,'/red-flags/<int:id>')
+    app = Flask(__name__, instance_relative_config=True)
+    # register blueprints
+    app.register_blueprint(v1)
+    app.config.from_pyfile('config.py')
     return app
