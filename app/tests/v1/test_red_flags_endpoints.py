@@ -2,22 +2,21 @@ import unittest
 import json
 from flask import jsonify
 from app import create_app
-from mock import Mock
 
 class TestRedFlags(unittest.TestCase):
     def setUp(self):
         self.app = create_app(config_name="testing")
         self.client = self.app.test_client
         self.data = {
-            "id": 1,
-            "type": "red-flag",
-            'createdBy': 0,
-            "createdOn": "11/2/2018",
-            'location': '-5.256987e, 30.369854s',
-            'status': 'rejected',
-            'images': 'http://hi.jpg',
-            'video': 'http://looped.mp4',
-            'comment': 'Rise of crime in west embakasi'
+            "comment": "THis hopefully works",
+            "createdBy": "",
+            "createdOn": "Sat, 01 Dec 2018 13:26:12 GMT",
+            "id": 4,
+            "image": "wwmkmwmow",
+            "incident_type": "red-flag",
+            "location": "Ronfgai",
+            "status": "investigating",
+            "video": "jooncono"
         }
 
 
@@ -37,9 +36,7 @@ class TestRedFlags(unittest.TestCase):
         """Test user can edit an incidences."""
         res = self.client().post('/api/v1/red-flags', data=json.dumps(self.data),content_type="application/json")
         self.assertEqual(res.status_code, 201)
-        res = self.client().patch('/api/v1/red-flags/1/comment', json={
-            "comment": "Clerks are taking bribes"
-        })
+        res = self.client().patch('/api/v1/red-flags/1/comment', data=json.dumps(self.data),content_type="application/json")
         self.assertEqual(res.status_code, 201)
     
 
@@ -47,9 +44,7 @@ class TestRedFlags(unittest.TestCase):
         """Test user can edit an incidences."""
         res = self.client().post('/api/v1/red-flags',data=json.dumps(self.data),content_type="application/json")
         self.assertEqual(res.status_code, 201)
-        res = self.client().patch('/api/v1/red-flags/1/location', json={
-            "Location": "WestGate"
-        })
+        res = self.client().patch('/api/v1/red-flags/1/location', data=json.dumps(self.data),content_type="application/json")
         self.assertEqual(res.status_code, 201)
         
         
