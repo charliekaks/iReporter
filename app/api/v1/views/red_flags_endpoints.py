@@ -1,6 +1,7 @@
 from flask import make_response, jsonify, request, Response
 from datetime import datetime
 from flask_restful import Resource, Api, reqparse
+from app.api.v1.models.Red_Flag import RedFlagsModel
 
 red_flags = []
 
@@ -102,6 +103,45 @@ class UniqueRedFlag(Resource):
             "data": [{
                         "id": id,
                         "message":  "successfully deleted a red-flag record"
+                    }]
+        }  
+        return  make_response(jsonify(response),201)  
+
+class LocationRedFlag(Resource):
+    def patch(self,id):
+        request_data = request.get_json()
+        updated_location = {}
+        if "location" in request_data:
+            updated_location["location"] = request_data["location"]
+        for flag in red_flags:
+            if flag["id"] == id:
+                flag.update(updated_location)
+        
+        response = {
+            "status": 200,
+            "data": [{
+                        "id": id,
+                        "message":  "successfully updated location of a red-flag record"
+                    }]
+        }  
+        return  make_response(jsonify(response),201)  
+
+
+class CommentRedFlag(Resource):
+    def patch(self,id):
+        request_data = request.get_json()
+        updated_comment = {}
+        if "comment" in request_data:
+            updated_comment["comment"] = request_data["comment"]
+        for flag in red_flags:
+            if flag["id"] == id:
+                flag.update(updated_comment)
+        
+        response = {
+            "status": 200,
+            "data": [{
+                        "id": id,
+                        "message":  "successfully updated comment of a red-flag record"
                     }]
         }  
         return  make_response(jsonify(response),201)  
