@@ -1,45 +1,72 @@
 """
 red-flags model
 """
+import datetime
 
 RED_FLAGS_LIST = []
 
-class RedFlagsModel():
+class RedFlagsModel:
     """
     red-flags class
     """
-    def __init__(self):
-        self.database = RED_FLAGS_LIST
+    id = 1
+    def __init__(self, incident_type=None, location=None,status=None, image=None, video=None ,comment=None):
+        self.id = RedFlagsModel.id
+        self.incident_type = incident_type
+        self.location = location
+        self.status = status
+        self.image = image
+        self.video = video
+        self.createdBy = ""
+        self.comment = comment
+        self.createdOn = datetime.datetime.now()
 
-    def save(self, *args):
+        RedFlagsModel.id += 1
+
+    def json_maker(self):
+        return{
+            "id":self.id,
+            "incident_type": self.incident_type,
+            "location": self.location,
+            "status": self.status,
+            "image": self.image,
+            "video": self.video,
+            "createdBy":self.createdBy,
+            "comment": self.comment,
+            "createdOn": self.createdOn
+        }
+    @staticmethod
+    def update_incident_location(location,id):
+        for incident in RED_FLAGS_LIST:
+            if incident.id == id:
+                RED_FLAGS_LIST.remove(incident)
+                incident.location = location
+                return incident
+        return None
+
+
+    @staticmethod
+    def update_incident_comment(comment,id):
+        for incident in RED_FLAGS_LIST:
+            if incident.id == id:
+                RED_FLAGS_LIST.remove(incident)
+                incident.comment = comment
+                return incident
+        return None
+
+        
+    def save(self):
         """
         save method
         """
-        createdBy = args[0]
-        createdOn= args[1]
-        incident_type = args[2]
-        location = args[3]
-        status = args[4]
-        image = args[5]
-        video = args[6]
-        comment = args[7]
-        data = {
-            "id": len(self.database)+1,
-            "createdBy": createdBy,
-            "createdOn": createdOn,
-            "type": incident_type,
-            "location": location,
-            "status": status,
-            "image": image,
-            "video": video,
-            "comment": comment
-        }
-        self.database.append(data)
+        RED_FLAGS_LIST.append(self)
 
-        return self.database
+        return RED_FLAGS_LIST
 
-    def get_red_flags(self):
+    @staticmethod
+    def get_red_flags():
         """
         get_red_flags method
         """
-        return self.database
+        return RED_FLAGS_LIST
+
