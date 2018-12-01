@@ -43,4 +43,65 @@ class RedFlags(Resource):
         return  make_response(jsonify(response),201)
     def get(self):
         return make_response(jsonify({"red-flags":red_flags}), 201)
+
+class UniqueRedFlag(Resource):
+    def get(self,id):
+        return_value = {}
+        for flag in red_flags:
+            if flag["id"] == id:
+                return_value = {
+                    "id": flag['id'],
+                    "createdOn": flag['createdOn'],
+                    "createdBy" : flag['createdBy'],
+                    "type": flag['type'],
+                    "location": flag['location'],
+                    "status": flag['status'],
+                    "images": flag['images'],
+                    "video": flag['video'],
+                    "comment": flag['comment']
+                }
+        return make_response(jsonify(return_value),200)
     
+    def put(self,id):
+        request_data = request.get_json()
+        updated_red_flag = {
+            "id": request_data['id'],
+            "createdOn": request_data['createdOn'],
+            "createdBy" : request_data['createdBy'],
+            "type": request_data['type'],
+            "location": request_data['location'],
+            "status": request_data['status'],
+            "images": request_data['images'],
+            "video": request_data['video'],
+            "comment": request_data['comment']
+        }
+        i = 0
+        for flag in red_flags:
+            currentFlag = flag["id"]
+            if currentFlag == id:
+                red_flags[i] = updated_red_flag
+            i+=1
+        response = {
+            "status": 200,
+            "data": [{
+                        "id": updated_red_flag["id"],
+                        "message":  "successfully editted a red-flag record"
+                    }]
+        }  
+        return  make_response(jsonify(response),201)  
+
+
+    def delete(self,id):
+        i=0
+        for flag in red_flags:
+            if flag["id"] == id:
+                red_flags.pop(i)
+            i+=1
+        response = {
+            "status": 200,
+            "data": [{
+                        "id": id,
+                        "message":  "successfully deleted a red-flag record"
+                    }]
+        }  
+        return  make_response(jsonify(response),201)  
