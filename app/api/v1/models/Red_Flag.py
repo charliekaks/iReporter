@@ -23,8 +23,7 @@ class RedFlagsModel:
         self.createdOn = datetime.datetime.now()
 
         RedFlagsModel.id += 1
-        self.db = init_db()
-
+    
     def json_maker(self):
         return{
             "id":self.id,
