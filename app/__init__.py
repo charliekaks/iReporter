@@ -11,7 +11,6 @@ from .api.v1 import v1
 
 def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
-    
     # register blueprints
     app.register_blueprint(v1)
     app.config.from_pyfile('config.py')
