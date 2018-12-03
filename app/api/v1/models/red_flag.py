@@ -2,7 +2,6 @@
 red-flags model
 """
 import datetime
-from ....db_config import init_db
 
 RED_FLAGS_LIST = []
 
@@ -21,9 +20,9 @@ class RedFlagsModel:
         self.createdBy = ""
         self.comment = comment
         self.createdOn = datetime.datetime.now()
-
         RedFlagsModel.id += 1
     
+
     def json_maker(self):
         return{
             "id":self.id,
@@ -36,6 +35,8 @@ class RedFlagsModel:
             "comment": self.comment,
             "createdOn": self.createdOn
         }
+
+
     @staticmethod
     def update_incident_location(location,id):
         for incident in RED_FLAGS_LIST:
