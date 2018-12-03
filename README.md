@@ -19,11 +19,6 @@ Create directory
 
 ```$ cd iReporter```
 
-create a .env file
-
-``` touch .env```
-``` using the .env_example as an example, add details to the .env file```
-
 Create and activate virtual environment
 
 ```$ virtualenv env -p python3```
@@ -47,21 +42,12 @@ Install project dependencies
 
 ``` No database setup required, the app uses data-structures to store data```
 
-*Step 3*
-
-#### Storing environment variables 
-
-```
-environment variables are stored in .env file
-```
-
-*Step 4*
 
 #### Running the application
 
 ```$ flask run``` 
 
-*Step 5*
+*Step 3*
 
 #### Testing
 
