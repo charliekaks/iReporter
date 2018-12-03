@@ -31,11 +31,14 @@ class RedFlags(Resource):
                 }
 
         return  make_response(jsonify(response),201)
+
         
     def get(self):
         return make_response(jsonify({"red":
                                     [incident.json_maker() for incident in RedFlagsModel.get_red_flags()]
                                     }),200)
+
+
 
 class UniqueRedFlag(Resource):
     def get(self,id):
@@ -65,6 +68,7 @@ class UniqueRedFlag(Resource):
         return  make_response(jsonify(response),201)  
 
 
+
     def delete(self,id):
         i=0
         for flag in RedFlagsModel.get_red_flags():
@@ -79,6 +83,7 @@ class UniqueRedFlag(Resource):
                     }]
         }  
         return  make_response(jsonify(response),201)  
+        
 
 class LocationRedFlag(Resource):
     def patch(self,id):

@@ -5,7 +5,7 @@ import datetime
 
 RED_FLAGS_LIST = []
 
-class RedFlagsModel:
+class RedFlagsModel():
     """
     red-flags class
     """
@@ -64,6 +64,7 @@ class RedFlagsModel:
         RED_FLAGS_LIST.append(self)
 
         return RED_FLAGS_LIST
+
 
     @staticmethod
     def get_red_flags():
