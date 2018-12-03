@@ -2,6 +2,10 @@ from flask import make_response, jsonify, request, Response
 from datetime import datetime
 from flask_restful import Resource, Api, reqparse
 from app.api.v1.models.Red_Flag import RedFlagsModel
+import jwt , datetime
+from functools import wraps
+
+
 
 parser = reqparse.RequestParser()
 parser.add_argument('incident_type', required=True, help='type cannot be blank')
@@ -11,7 +15,26 @@ parser.add_argument('image', required=True, help='image cannot be blank')
 parser.add_argument('video', required=True, help='video cannot be blank')
 parser.add_argument('comment', required=True, help='comments cannot be blank')
 
-class RedFlags(Resource):        
+sec_key = "charles"
+
+def token_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        token = request.args.get('token')
+        try:
+            jwt.decode(token, sec_key)
+            return f(*args, **kwargs)
+        except:
+            return make_response(jsonify({'error': 'Need a valid Token to access this endpoint'}),401)
+    return wrapper
+
+class GetToken(Resource):
+    def get(self):
+        expiry_date = datetime.datetime.utcnow() + datetime.timedelta(seconds=100)
+        token = jwt.encode({'exp': expiry_date},sec_key, algorithm='HS256').decode('utf-8')
+        return token
+
+class RedFlags(Resource):       
     def post(self):
         data = parser.parse_args()
 
@@ -26,12 +49,11 @@ class RedFlags(Resource):
                 }
 
         return  make_response(jsonify(response),201)
-
-
+        
     def get(self):
         return make_response(jsonify({"red":
                                     [incident.json_maker() for incident in RedFlagsModel.get_red_flags()]
-                                    }),201)
+                                    }),200)
 
 class UniqueRedFlag(Resource):
     def get(self,id):

@@ -2,6 +2,7 @@
 red-flags model
 """
 import datetime
+from ....db_config import init_db
 
 RED_FLAGS_LIST = []
 
@@ -22,6 +23,7 @@ class RedFlagsModel:
         self.createdOn = datetime.datetime.now()
 
         RedFlagsModel.id += 1
+        self.db = init_db()
 
     def json_maker(self):
         return{

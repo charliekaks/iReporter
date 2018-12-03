@@ -10,5 +10,75 @@
 4. _Administrators page that allows tracking of reports_
 5. _Ability to delete and check on changes uploaded_
 
+### Installing
+
+*Step 1*
+
+Create directory
+```$ mkdir iReporter```
+
+```$ cd iReporter```
+
+create a .env file
+
+``` touch .env```
+``` using the .env_example as an example, add details to the .env file```
+
+Create and activate virtual environment
+
+```$ virtualenv env -p python3```
+
+
+```$ source env/bin/activate ```
+
+Clone the repository [```here```](https://github.com/charliekaks/iReporter.git) or 
+
+``` git clone https://github.com/charliekaks/iReporter.git ```
+
+Install project dependencies 
+
+
+```$ pip install -r requirements.txt```
+
+
+*Step 2* 
+
+#### Set up database and virtual environment & Database 
+
+``` No database setup required, the app uses data-structures to store data```
+
+*Step 3*
+
+#### Storing environment variables 
+
+```
+environment variables are stored in .env file
+```
+
+*Step 4*
+
+#### Running the application
+
+```$ flask run``` 
+
+*Step 5*
+
+#### Testing
+
+```$ pytest```
+
+### API-Endpoints
+
+#### Red Flag Endpoints : api/v1/redflags
+
+Method | Endpoint | Functionality
+--- | --- | ---
+POST | /api/v1/red-flags | Create a red flag
+GET | /api/v1/red-flags/id | Get a specific red flag
+PATCH| /api/v1/red-flags/id/comment | Change a particular comment
+PATCH | /api/v1/red-flags/id/location | Change a particular comment
+DELETE | /api/v1/red-flags/id | Delete a red flag
+
+
 ## Link to Live site
 [iReporter live site]()
