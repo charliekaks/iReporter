@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/charliekaks/iReporter.svg?branch=develop)](https://travis-ci.org/charliekaks/iReporter)
+
+
 # iReporter Application
 
 ## Description
