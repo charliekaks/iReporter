@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/charliekaks/iReporter.svg?branch=develop)](https://travis-ci.org/charliekaks/iReporter)
+[![Coverage Status](https://coveralls.io/repos/github/charliekaks/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/charliekaks/iReporter?branch=develop)
 
 
 # iReporter Application
