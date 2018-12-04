@@ -3,7 +3,7 @@ import datetime
 User_List = []
 
 
-class UserModel:
+class UserModel():
     id = 1
     def __init__(self, firstname=None, lastname=None, othernames= None, email= None, phoneNumber= None,username=None):
         self.id = UserModel.id
@@ -15,8 +15,8 @@ class UserModel:
         self.username = username
         self.registered = datetime.datetime.now()
         self.isAdmin = False
-
         UserModel.id +=1
+
     
     def json_maker(self):
         return{
@@ -31,13 +31,14 @@ class UserModel:
             "isAdmin" : self.isAdmin
         }
 
+
     def save(self):
         """
         save method
         """
         User_List.append(self)
-
         return User_List
+
 
     @staticmethod
     def get_users():

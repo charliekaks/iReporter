@@ -1,7 +1,7 @@
 from flask import make_response, jsonify, request, Response
 from datetime import datetime
 from flask_restful import Resource, Api, reqparse
-from app.api.v1.models.Red_Flag import RedFlagsModel
+from app.api.v1.models.red_flag import RedFlagsModel
 import jwt , datetime
 from functools import wraps
 
@@ -15,26 +15,8 @@ parser.add_argument('image', required=True, help='image cannot be blank')
 parser.add_argument('video', required=True, help='video cannot be blank')
 parser.add_argument('comment', required=True, help='comments cannot be blank')
 
-sec_key = "charles"
 
-def token_required(f):
-    @wraps(f)
-    def wrapper(*args, **kwargs):
-        token = request.args.get('token')
-        try:
-            jwt.decode(token, sec_key)
-            return f(*args, **kwargs)
-        except:
-            return make_response(jsonify({'error': 'Need a valid Token to access this endpoint'}),401)
-    return wrapper
-
-class GetToken(Resource):
-    def get(self):
-        expiry_date = datetime.datetime.utcnow() + datetime.timedelta(seconds=100)
-        token = jwt.encode({'exp': expiry_date},sec_key, algorithm='HS256').decode('utf-8')
-        return token
-
-class RedFlags(Resource):       
+class RedFlags(Resource):   
     def post(self):
         data = parser.parse_args()
 
@@ -49,22 +31,20 @@ class RedFlags(Resource):
                 }
 
         return  make_response(jsonify(response),201)
+
         
     def get(self):
         return make_response(jsonify({"red":
                                     [incident.json_maker() for incident in RedFlagsModel.get_red_flags()]
                                     }),200)
 
+
+
 class UniqueRedFlag(Resource):
     def get(self,id):
         for incident in RedFlagsModel.get_red_flags():
             if incident.id == id:
                 return make_response(jsonify(incident.json_maker()),200)
-            
-            return make_response(jsonify({
-                "status": 404,
-                "data":[{"message": "Incident not found."}]
-            }),404)
 
     
     def put(self,id):
@@ -88,6 +68,7 @@ class UniqueRedFlag(Resource):
         return  make_response(jsonify(response),201)  
 
 
+
     def delete(self,id):
         i=0
         for flag in RedFlagsModel.get_red_flags():
@@ -102,6 +83,7 @@ class UniqueRedFlag(Resource):
                     }]
         }  
         return  make_response(jsonify(response),201)  
+        
 
 class LocationRedFlag(Resource):
     def patch(self,id):

@@ -5,7 +5,6 @@ from flask import Flask
 from instance.config import app_config
 from flask_restful import Resource, Api
 from .api.v1 import v1
-#from db_config import create_tables
 
 
 

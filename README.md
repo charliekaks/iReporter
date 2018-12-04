@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.org/charliekaks/iReporter.svg?branch=develop)](https://travis-ci.org/charliekaks/iReporter)
+[![Coverage Status](https://coveralls.io/repos/github/charliekaks/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/charliekaks/iReporter?branch=develop)
+
+
 # iReporter Application
 
 ## Description
@@ -61,8 +65,9 @@ Method | Endpoint | Functionality
 --- | --- | ---
 POST | /api/v1/red-flags | Create a red flag
 GET | /api/v1/red-flags/id | Get a specific red flag
+GET | /api/v1/red-flags | Get all specific red flags
 PATCH| /api/v1/red-flags/id/comment | Change a particular comment
-PATCH | /api/v1/red-flags/id/location | Change a particular comment
+PATCH | /api/v1/red-flags/id/location | Change a particular location
 DELETE | /api/v1/red-flags/id | Delete a red flag
 
 

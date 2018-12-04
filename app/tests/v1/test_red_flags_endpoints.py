@@ -11,7 +11,7 @@ class TestRedFlags(unittest.TestCase):
             "comment": "THis hopefully works",
             "createdBy": "",
             "createdOn": "Sat, 01 Dec 2018 13:26:12 GMT",
-            "id": 4,
+            "id": 1,
             "image": "wwmkmwmow",
             "incident_type": "red-flag",
             "location": "Ronfgai",
@@ -36,6 +36,13 @@ class TestRedFlags(unittest.TestCase):
         self.assertEqual(res.status_code, 201)
         result = self.client().delete('/api/v1/red-flags/1')
         self.assertEqual(result.status_code, 201)
+    
+
+    def test_get_specific_incident_true(self):
+        res = self.client().post('/api/v1/red-flags', data=json.dumps(self.data),content_type="application/json")
+        self.assertEqual(res.status_code, 201)
+        result = self.client().get('api/v1/red-flags/1')
+        self.assertEqual(result.status_code, 200)
     
 
     def test_edit_existing_record_comment_true(self):
