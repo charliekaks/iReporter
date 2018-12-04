@@ -3,7 +3,7 @@ language: python
 python:
   - "3.6"
 
-cache: pip    
+cache:[![Coverage Status](https://coveralls.io/repos/github/charliekaks/iRepor[![Coverage Status](https://coveralls.io/repos/github/charliekaks/iReporter/badge.svg?branch=master)](https://coveralls.io/github/charliekaks/iReporter?branch=master)ter/badge.svg?branch=master)](https://coveralls.io/github/charliekaks/iReporter?branch=master) pip    
 install:    
  - pip install -r requirements.txt
  - pip install coveralls
@@ -11,6 +11,7 @@ install:
 
 script:    
  - pytest --cov-report term-missing --cov=app 
+ - codecov --token=1df34edc-ce51-41c5-9c71-dfdca223c04c
  - coveralls
 after_success: 
  - coveralls
