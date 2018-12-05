@@ -71,6 +71,15 @@ PATCH| /api/v1/red-flags/id/comment | Change a particular comment
 PATCH | /api/v1/red-flags/id/location | Change a particular location
 DELETE | /api/v1/red-flags/id | Delete a red flag
 
+#### User Endpoints : api/v1/auth
+
+Method | Endpoint | Functionality
+--- | --- | ---
+POST | /api/v1/auth/register | Create a user
+POST | /api/v1/auth/login | Log in a user
+GET  | /api/v1/auth/register | Get all the users
+
+
 
 ## Link to Live site
 [iReporter live site]()

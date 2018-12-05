@@ -1,5 +1,4 @@
 from flask import make_response, jsonify
-from flask_jwt_extended import jwt_required
 from flask_restful import Resource, reqparse
 
 from app.api.v1.models.incident import IncidentModel
@@ -13,8 +12,7 @@ parser.add_argument('video', required=True, help='video cannot be blank')
 parser.add_argument('comment', required=True, help='comments cannot be blank')
 
 
-class RedFlags(Resource):
-    @jwt_required
+class RedFlags(Resource):   
     def post(self):
         data = parser.parse_args()
 
@@ -30,7 +28,7 @@ class RedFlags(Resource):
 
         return  make_response(jsonify(response),201)
 
-    @jwt_required    
+        
     def get(self):
         return make_response(jsonify({"red":
                                     [incident.json_maker() for incident in IncidentModel.get_incident()]
@@ -39,13 +37,12 @@ class RedFlags(Resource):
 
 
 class UniqueRedFlag(Resource):
-    @jwt_required
     def get(self,id):
         for incident in IncidentModel.get_incident():
             if incident.id == id:
                 return make_response(jsonify(incident.json_maker()),200)
 
-    @jwt_required
+    
     def delete(self,id):
         i=0
         for flag in IncidentModel.get_incident():
@@ -63,7 +60,6 @@ class UniqueRedFlag(Resource):
         
 
 class LocationRedFlag(Resource):
-    @jwt_required
     def patch(self,id):
         data = parser.parse_args()
         incident = IncidentModel(**data)
@@ -83,7 +79,6 @@ class LocationRedFlag(Resource):
 
 
 class CommentRedFlag(Resource):
-    @jwt_required
     def patch(self,id):
         data = parser.parse_args()
         incident = IncidentModel(**data)

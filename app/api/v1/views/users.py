@@ -17,8 +17,8 @@ class SignIn(Resource):
         logged_user = UserModel.find_user(request_data['username'])
 
         if logged_user and logged_user.authenticate_password(password=request_data["password"]):
-            expire_time = datetime.timedelta(minutes=60)
-            token = create_access_token(logged_user.username, expires_delta=expire_time, )
+            expire_time = datetime.timedelta(minutes=75)
+            token = create_access_token(logged_user.username, expires_delta=expire_time)
             result = {"status": 200,
                     'token': token,
                     "data": [{

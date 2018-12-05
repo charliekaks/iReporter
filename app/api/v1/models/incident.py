@@ -1,5 +1,5 @@
 """
-red-flags model
+incident model
 """
 import datetime
 
@@ -17,7 +17,7 @@ class IncidentModel():
         self.status = status
         self.image = image
         self.video = video
-        self.createdBy = "charlie"
+        self.createdBy = ""
         self.comment = comment
         self.createdOn = datetime.datetime.now()
         IncidentModel.id += 1
@@ -67,7 +67,7 @@ class IncidentModel():
 
 
     @staticmethod
-    def get_red_flags():
+    def get_incident():
         """
         get_all incidents method
         """
