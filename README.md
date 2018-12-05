@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/charliekaks/iReporter.svg?branch=develop)](https://travis-ci.org/charliekaks/iReporter)
+[![Maintainability](https://api.codeclimate.com/v1/badges/fde3b00b6918f987f7b3/maintainability)](https://codeclimate.com/github/charliekaks/iReporter/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/charliekaks/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/charliekaks/iReporter?branch=develop)
 
 

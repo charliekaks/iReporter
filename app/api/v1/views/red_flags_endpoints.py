@@ -1,9 +1,10 @@
 from flask import make_response, jsonify, request, Response
 from datetime import datetime
 from flask_restful import Resource, Api, reqparse
-from app.api.v1.models.red_flag import RedFlagsModel
+from app.api.v1.models.incident import IncidentModel
 import jwt , datetime
 from functools import wraps
+from ..validators.validator import UserSchema, IncidentSchema, IncidentEditSchema
 
 
 
@@ -20,7 +21,7 @@ class RedFlags(Resource):
     def post(self):
         data = parser.parse_args()
 
-        incident = RedFlagsModel(**data)
+        incident = IncidentModel(**data)
         incident.save()
         response = {
             "status": 201,
@@ -35,23 +36,23 @@ class RedFlags(Resource):
         
     def get(self):
         return make_response(jsonify({"red":
-                                    [incident.json_maker() for incident in RedFlagsModel.get_red_flags()]
+                                    [incident.json_maker() for incident in IncidentModel.get_red_flags()]
                                     }),200)
 
 
 
 class UniqueRedFlag(Resource):
     def get(self,id):
-        for incident in RedFlagsModel.get_red_flags():
+        for incident in IncidentModel.get_red_flags():
             if incident.id == id:
                 return make_response(jsonify(incident.json_maker()),200)
 
     
     def delete(self,id):
         i=0
-        for flag in RedFlagsModel.get_red_flags():
+        for flag in IncidentModel.get_red_flags():
             if flag.id == id:
-                RedFlagsModel.get_red_flags().pop(i)
+                IncidentModel.get_red_flags().pop(i)
             i+=1
         response = {
             "status": 200,
@@ -66,8 +67,8 @@ class UniqueRedFlag(Resource):
 class LocationRedFlag(Resource):
     def patch(self,id):
         data = parser.parse_args()
-        incident = RedFlagsModel(**data)
-        for flag in RedFlagsModel.get_red_flags():
+        incident = IncidentModel(**data)
+        for flag in IncidentModel.get_red_flags():
             if flag.id == id:
                 flag.update_incident_location(incident.location,id)
                 flag.save()
@@ -85,8 +86,8 @@ class LocationRedFlag(Resource):
 class CommentRedFlag(Resource):
     def patch(self,id):
         data = parser.parse_args()
-        incident = RedFlagsModel(**data)
-        for flag in RedFlagsModel.get_red_flags():
+        incident = IncidentModel(**data)
+        for flag in IncidentModel.get_red_flags():
             if flag == id:
                 flag.update_incident_comment(incident.comment,id)
                 flag.save()
