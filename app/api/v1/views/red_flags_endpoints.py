@@ -47,28 +47,6 @@ class UniqueRedFlag(Resource):
                 return make_response(jsonify(incident.json_maker()),200)
 
     
-    def put(self,id):
-        data = parser.parse_args()
-        incident = RedFlagsModel(**data)
-        incident.save()
-        updated_red_flag = incident
-        i = 0
-        for flag in RedFlagsModel.get_red_flags():
-            currentFlag = flag.id
-            if currentFlag == id:
-                RedFlagsModel.get_red_flags()[i] = updated_red_flag.json_maker()
-            i+=1
-        response = {
-            "status": 200,
-            "data": [{
-                        "id": updated_red_flag.id,
-                        "message":  "successfully editted a red-flag record"
-                    }]
-        }  
-        return  make_response(jsonify(response),201)  
-
-
-
     def delete(self,id):
         i=0
         for flag in RedFlagsModel.get_red_flags():
