@@ -27,3 +27,9 @@ class UserTest(unittest.TestCase):
         a_user.save()
 
         self.assertEqual(a_user.firstname, 'charles')
+    
+    def test_update_location(self):
+        pass
+    
+    def test_update_comment(self):
+        pass

@@ -18,16 +18,23 @@ class TestRedFlags(unittest.TestCase):
             "status": "investigating",
             "video": "jooncono"
         }
+        
 
 
     def test_redflag_creation(self):
         result = self.client().post('/api/v1/red-flags',data=json.dumps(self.data),content_type="application/json")
         self.assertEqual(result.status_code, 201)
     
-    def test_get_redflag_(self):
+    def test_get_redflag(self):
         result = self.client().post('/api/v1/red-flags',data=json.dumps(self.data),content_type="application/json")
         self.assertEqual(result.status_code, 201)
         get_result = self.client().get('/api/v1/red-flags')
+        self.assertEqual(get_result.status_code, 200)
+    
+    def test_get_specific_redflag(self):
+        result = self.client().post('/api/v1/red-flags',data=json.dumps(self.data),content_type="application/json")
+        self.assertEqual(result.status_code, 201)
+        get_result = self.client().get('/api/v1/red-flags/1')
         self.assertEqual(get_result.status_code, 200)
 
 
