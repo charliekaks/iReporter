@@ -10,7 +10,6 @@ from ..models.user import UserModel
 
 
 class UserSignup(Resource):
-    @jwt_required
     def post(self):
         user_details = request.get_json()
         user = {
@@ -33,7 +32,6 @@ class UserSignup(Resource):
 
 
 class UserLogin(Resource):
-    @jwt_required
     def post(self):
         req_data = request.get_json()
         login_details = {

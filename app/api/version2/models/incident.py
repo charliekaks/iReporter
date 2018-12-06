@@ -9,9 +9,7 @@ class IncidentModel():
     """
     incident class
     """
-    id = 1
     def __init__(self, incident_type=None, location=None,status=None, image=None, video=None ,comment=None):
-        self.id = IncidentModel.id
         self.incident_type = incident_type
         self.location = location
         self.status = status
@@ -21,37 +19,23 @@ class IncidentModel():
         self.comment = comment
         self.createdOn = datetime.datetime.now()
         self.db = init_db()
-        IncidentModel.id += 1
 
     def save_incident(self):
         """Add incident details to the database"""
         incident = {
-            "incident_type": self.incident_type,
-            "id" : self.id,
-            "location": self.location,
-            "status": self.status,
-            "image": self.image,
-            "video": self.video,
-            "created_by":self.createdBy,
-            "comment": self.comment
+            "incident_type": self.incident_type.strip(),
+            "location": self.location.strip(),
+            "status": self.status.strip(),
+            "image": self.image.strip(),
+            "video": self.video.strip(),
+            "created_by":self.createdBy.strip(),
+            "comment": self.comment.strip()
         }
         database = self.db
         curr = database.cursor()
-        query = """INSERT INTO incident (incident_type, id, location, status, created_on, image, video, created_by, comment)  VALUES ( %(incident_type)s,
-                   %(id)s, %(location)s, %(status)s,('now'), %(image)s, %(video)s, %(created_by)s, %(comment)s) RETURNING id;"""
-        query_2 = """ SELECT  REGEXP_REPLACE(cast(incident_type AS text), '\s+$', '') FROM incident;"""
-        query_3 = """ SELECT  REGEXP_REPLACE(cast(id AS text), '\s+$', '') FROM incident;"""
-        query_4 = """ SELECT  REGEXP_REPLACE(cast(location AS text), '\s+$', '') FROM incident;"""
-        query_5 = """ SELECT  REGEXP_REPLACE(cast(status AS text), '\s+$', '') FROM incident;"""
-        query_6 = """ SELECT  REGEXP_REPLACE(cast(created_on AS text), '\s+$', '') FROM incident;"""
-        query_7 = """ SELECT  REGEXP_REPLACE(cast(image AS text), '\s+$', '') FROM incident;"""
-        query_8 = """ SELECT  REGEXP_REPLACE(cast(video AS text), '\s+$', '') FROM incident;"""
-        query_9 = """ SELECT  REGEXP_REPLACE(cast(created_by AS text), '\s+$', '') FROM incident;"""
-        query_10 = """ SELECT  REGEXP_REPLACE(cast(comment AS text), '\s+$', '') FROM incident;"""
-        queries =[ query_2,query_3,query_4,query_5,query_6,query_7,query_8,query_9,query_10]
+        query = """INSERT INTO incident (incident_type, location, status, created_on, image, video, created_by, comment)  VALUES ( %(incident_type)s
+                   , %(location)s, %(status)s,('now'), %(image)s, %(video)s, %(created_by)s, %(comment)s) RETURNING id;"""
         curr.execute(query, incident)
-        for query in queries:
-            curr.execute(query, incident)
         database.commit()
         curr.close()
         

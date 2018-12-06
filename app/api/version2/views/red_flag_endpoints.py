@@ -1,5 +1,6 @@
 from flask import make_response, jsonify
 from flask_restful import Resource, reqparse
+from flask_jwt_extended import  jwt_required
 
 from app.api.version2.models.incident import IncidentModel
 
@@ -12,7 +13,8 @@ parser.add_argument('video', required=True, help='video cannot be blank')
 parser.add_argument('comment', required=True, help='comments cannot be blank')
 
 
-class RedFlagsV2(Resource):   
+class RedFlagsV2(Resource): 
+    @jwt_required  
     def post(self):
         data = parser.parse_args()
         incident = IncidentModel(**data)
@@ -27,7 +29,7 @@ class RedFlagsV2(Resource):
 
         return  make_response(jsonify(resp),201)
 
-        
+    @jwt_required    
     def get(self):
         incident = IncidentModel()
         all_incidents = incident.get_all_incidents()
@@ -37,13 +39,14 @@ class RedFlagsV2(Resource):
 
 
 class UniqueRedFlagV2(Resource):
+    @jwt_required
     def get(self,id):
         incident = IncidentModel()
         incident_searched = incident.get_specific_incident(id)
         return dict(incident=incident_searched, status="ok"), 200
         
 
-    
+    @jwt_required
     def delete(self,id):
         check = IncidentModel.find_if_user_exists_by_id(id)
         if check:
@@ -67,6 +70,7 @@ class UniqueRedFlagV2(Resource):
         
 
 class LocationRedFlagV2(Resource):
+    @jwt_required
     def patch(self,id):
         check = IncidentModel.find_if_user_exists_by_id(id)
         if check:
@@ -84,6 +88,7 @@ class LocationRedFlagV2(Resource):
 
 
 class CommentRedFlagV2(Resource):
+    @jwt_required
     def patch(self,id):
         check = IncidentModel.find_if_user_exists_by_id(id)
         if check:

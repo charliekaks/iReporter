@@ -11,7 +11,6 @@ parser = reqparse.RequestParser(bundle_errors=True)
 class SignIn(Resource):
     parser.add_argument('username', type=str, required=True, help='This field cannot be left blank!')
     parser.add_argument('password', type=str, required=True, help='This field cannot be left blank!')
-    @jwt_required
     def post(self):
         request_data = parser.parse_args()
 
@@ -48,7 +47,7 @@ class SignUp(Resource):
     parser.add_argument('phoneNumber', type=str, default="", help='This field can be left blank!')
     parser.add_argument('username', type=str, default="",help='This field can be left blank!')
     parser.add_argument('password', type=str, default="",help='This field can be left blank!')
-    @jwt_required
+  
     def post(self):
         request_data = parser.parse_args()
         user_exists = UserModel.check_user(request_data['username'])
