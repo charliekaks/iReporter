@@ -39,7 +39,7 @@ def destroy_tables():
         print("Fail")
 
 def tables():
-    db1 = """CREATE TABLE IF NOT EXISTS red_flags(
+    db1 = """CREATE TABLE IF NOT EXISTS incident (
             id serial PRIMARY KEY NOT NULL,
             incident_type char(40) NOT NULL,
             location char(40) NOT NULL,

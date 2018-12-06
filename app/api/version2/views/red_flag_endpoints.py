@@ -1,7 +1,7 @@
 from flask import make_response, jsonify
 from flask_restful import Resource, reqparse
 
-from app.api.v1.models.incident import IncidentModel
+from app.api.version2.models.incident import IncidentModel
 
 parser = reqparse.RequestParser()
 parser.add_argument('incident_type', required=True, help='type cannot be blank')
@@ -12,13 +12,12 @@ parser.add_argument('video', required=True, help='video cannot be blank')
 parser.add_argument('comment', required=True, help='comments cannot be blank')
 
 
-class RedFlags(Resource):   
+class RedFlagsV2(Resource):   
     def post(self):
         data = parser.parse_args()
-
         incident = IncidentModel(**data)
-        incident.save()
-        response = {
+        incident.save_incident()
+        resp = {
             "status": 201,
             "data": [{
                         "id": incident.id,
@@ -26,72 +25,76 @@ class RedFlags(Resource):
                     }]
                 }
 
-        return  make_response(jsonify(response),201)
+        return  make_response(jsonify(resp),201)
 
         
     def get(self):
-        return make_response(jsonify({"red":
-                                    [incident.json_maker() for incident in IncidentModel.get_incident()]
-                                    }),200)
+        incident = IncidentModel()
+        all_incidents = incident.get_all_incidents()
+        return make_response(jsonify({"flags":all_incidents}), 200)
+        
 
 
 
-class UniqueRedFlag(Resource):
+class UniqueRedFlagV2(Resource):
     def get(self,id):
-        for incident in IncidentModel.get_incident():
-            if incident.id == id:
-                return make_response(jsonify(incident.json_maker()),200)
+        incident = IncidentModel()
+        incident_searched = incident.get_specific_incident(id)
+        return dict(incident=incident_searched, status="ok"), 200
+        
 
     
     def delete(self,id):
-        i=0
-        for flag in IncidentModel.get_incident():
-            if flag.id == id:
-                IncidentModel.get_incident().pop(i)
-            i+=1
-        response = {
+        check = IncidentModel.find_if_user_exists_by_id(id)
+        if check:
+            IncidentModel.delete_flag(id)
+            response = {
             "status": 200,
             "data": [{
                         "id": id,
                         "message":  "successfully deleted a red-flag record"
                     }]
-        }  
-        return  make_response(jsonify(response),201)  
+            }  
+            return  make_response(jsonify(response),201)
+        response = {
+            "status" : 404,
+            "data": [{
+                        "id": id,
+                        "message":  "red_flag not found in the database"
+                    }]
+            }  
+        return  make_response(jsonify(response),404)
         
 
-class LocationRedFlag(Resource):
+class LocationRedFlagV2(Resource):
     def patch(self,id):
-        data = parser.parse_args()
-        incident = IncidentModel(**data)
-        for flag in IncidentModel.get_incident():
-            if flag.id == id:
-                flag.update_incident_location(incident.location,id)
-                flag.save()
-        
-        response = {
+        check = IncidentModel.find_if_user_exists_by_id(id)
+        if check:
+            data = parser.parse_args()
+            IncidentModel.update_location(data, id)
+            response = {
             "status": 200,
             "data": [{
                         "id": id,
                         "message":  "successfully updated location of a red-flag record"
                     }]
-        }  
-        return  make_response(jsonify(response),201)  
+            }  
+            return  make_response(jsonify(response),201)  
 
 
-class CommentRedFlag(Resource):
+
+class CommentRedFlagV2(Resource):
     def patch(self,id):
-        data = parser.parse_args()
-        incident = IncidentModel(**data)
-        for flag in IncidentModel.get_incident():
-            if flag == id:
-                flag.update_incident_comment(incident.comment,id)
-                flag.save()
-        
-        response = {
+        check = IncidentModel.find_if_user_exists_by_id(id)
+        if check:
+            data = parser.parse_args()
+            IncidentModel.update_comment(data, id)
+            response = {
             "status": 200,
             "data": [{
                         "id": id,
                         "message":  "successfully updated comment of a red-flag record"
                     }]
-        }  
-        return  make_response(jsonify(response),201)  
+            }  
+            return  make_response(jsonify(response),201)  
+

@@ -2,7 +2,7 @@ import datetime
 from flask import make_response, jsonify, request, Response
 from flask_restful import Resource, reqparse
 from app.api.v1.models.user import UserModel
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token,  jwt_required
 
 parser = reqparse.RequestParser(bundle_errors=True)
 
@@ -11,6 +11,7 @@ parser = reqparse.RequestParser(bundle_errors=True)
 class SignIn(Resource):
     parser.add_argument('username', type=str, required=True, help='This field cannot be left blank!')
     parser.add_argument('password', type=str, required=True, help='This field cannot be left blank!')
+    @jwt_required
     def post(self):
         request_data = parser.parse_args()
 
@@ -32,7 +33,7 @@ class SignIn(Resource):
                     "message": "A user with that username doesn't exists"
                 }]}
         return make_response(jsonify(result), 400)
-
+    @jwt_required
     def get(self):
         return make_response(jsonify({"users":
                                     [user.json_maker() for user in UserModel.get_users()]
@@ -47,7 +48,7 @@ class SignUp(Resource):
     parser.add_argument('phoneNumber', type=str, default="", help='This field can be left blank!')
     parser.add_argument('username', type=str, default="",help='This field can be left blank!')
     parser.add_argument('password', type=str, default="",help='This field can be left blank!')
-
+    @jwt_required
     def post(self):
         request_data = parser.parse_args()
         user_exists = UserModel.check_user(request_data['username'])

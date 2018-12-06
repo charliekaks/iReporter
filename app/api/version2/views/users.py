@@ -1,9 +1,6 @@
 import datetime
-import json
-import re
-
 from flask import request, jsonify, make_response
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required
 # third party imports
 from flask_restful import Resource
 from werkzeug.exceptions import BadRequest, Unauthorized
@@ -13,6 +10,7 @@ from ..models.user import UserModel
 
 
 class UserSignup(Resource):
+    @jwt_required
     def post(self):
         user_details = request.get_json()
         user = {
@@ -35,6 +33,7 @@ class UserSignup(Resource):
 
 
 class UserLogin(Resource):
+    @jwt_required
     def post(self):
         req_data = request.get_json()
         login_details = {
