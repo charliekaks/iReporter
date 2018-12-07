@@ -2,7 +2,7 @@
 import unittest
 import json
 from flask import jsonify
-from app.api.v1.models.red_flag import RedFlagsModel
+from app.api.v1.models.incident import IncidentModel
 from app import create_app
 
 class IncidentTest(unittest.TestCase):
@@ -21,7 +21,7 @@ class IncidentTest(unittest.TestCase):
         Test CRUD functionality of the class
         :return: Item found.
         """
-        incident = RedFlagsModel(**IncidentTest.data)
+        incident = IncidentModel(**IncidentTest.data)
 
         incident.save()
 

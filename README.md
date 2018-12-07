@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/charliekaks/iReporter.svg?branch=develop)](https://travis-ci.org/charliekaks/iReporter)
+[![Maintainability](https://api.codeclimate.com/v1/badges/fde3b00b6918f987f7b3/maintainability)](https://codeclimate.com/github/charliekaks/iReporter/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/charliekaks/iReporter/badge.svg?branch=develop)](https://coveralls.io/github/charliekaks/iReporter?branch=develop)
 
 
@@ -69,6 +70,15 @@ GET | /api/v1/red-flags | Get all specific red flags
 PATCH| /api/v1/red-flags/id/comment | Change a particular comment
 PATCH | /api/v1/red-flags/id/location | Change a particular location
 DELETE | /api/v1/red-flags/id | Delete a red flag
+
+#### User Endpoints : api/v1/auth
+
+Method | Endpoint | Functionality
+--- | --- | ---
+POST | /api/v1/auth/register | Create a user
+POST | /api/v1/auth/login | Log in a user
+GET  | /api/v1/auth/register | Get all the users
+
 
 
 ## Link to Live site

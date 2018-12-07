@@ -1,17 +1,17 @@
 """
-red-flags model
+incident model
 """
 import datetime
 
-RED_FLAGS_LIST = []
+Incident_List = []
 
-class RedFlagsModel():
+class IncidentModel():
     """
-    red-flags class
+    incident class
     """
     id = 1
     def __init__(self, incident_type=None, location=None,status=None, image=None, video=None ,comment=None):
-        self.id = RedFlagsModel.id
+        self.id = IncidentModel.id
         self.incident_type = incident_type
         self.location = location
         self.status = status
@@ -20,7 +20,7 @@ class RedFlagsModel():
         self.createdBy = ""
         self.comment = comment
         self.createdOn = datetime.datetime.now()
-        RedFlagsModel.id += 1
+        IncidentModel.id += 1
     
 
     def json_maker(self):
@@ -39,9 +39,9 @@ class RedFlagsModel():
 
     @staticmethod
     def update_incident_location(location,id):
-        for incident in RED_FLAGS_LIST:
+        for incident in Incident_List:
             if incident.id == id:
-                RED_FLAGS_LIST.remove(incident)
+                Incident_List.remove(incident)
                 incident.location = location
                 return incident
         return None
@@ -49,9 +49,9 @@ class RedFlagsModel():
 
     @staticmethod
     def update_incident_comment(comment,id):
-        for incident in RED_FLAGS_LIST:
+        for incident in Incident_List:
             if incident.id == id:
-                RED_FLAGS_LIST.remove(incident)
+                Incident_List.remove(incident)
                 incident.comment = comment
                 return incident
         return None
@@ -61,15 +61,15 @@ class RedFlagsModel():
         """
         save method
         """
-        RED_FLAGS_LIST.append(self)
+        Incident_List.append(self)
 
-        return RED_FLAGS_LIST
+        return Incident_List
 
 
     @staticmethod
-    def get_red_flags():
+    def get_incident():
         """
-        get_red_flags method
+        get_all incidents method
         """
-        return RED_FLAGS_LIST
+        return Incident_List
 
